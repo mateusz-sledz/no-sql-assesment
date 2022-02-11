@@ -20,7 +20,7 @@ app.get('/countries', async (request, response) => {
 app.get('/countries/:id', async (request, response) => {
     const countryId = request.params.id;
 
-    const countries = await CountryModel.find({
+    const countries = await CountryModel.findOne({
         _id: countryId
     });
     
@@ -32,6 +32,30 @@ app.post('/countries', async (request, response) => {
 
     const country = await CountryModel.create({
         name: name,
+        isoCode
+    });
+
+    response.status(200).json(country);
+});
+
+app.delete('/countries/:id', async (request, response) => {
+    const countryId = request.params.id;
+
+    await CountryModel.findOneAndDelete({
+        _id: countryId
+    });
+
+    response.status(200).json({msg: 'Country well deleted !'});
+});
+
+app.put('/countries/:id', async (request, response) => {
+    const countryId = request.params.id;
+    const {name, isoCode} = request.body
+
+    const country = await CountryModel.findOneAndUpdate({
+        _id: countryId
+    },{
+        name,
         isoCode
     });
 
