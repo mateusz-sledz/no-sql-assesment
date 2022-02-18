@@ -4,7 +4,7 @@ const router = express.Router()
 const CountryModel = require('../models/Country')
 
 router.get('/', async (request, response) => {
-    const countries = await CountryModel.find().populate('continent');
+    const countries = await CountryModel.find();
     response.status(200).json(countries);
 });
 
