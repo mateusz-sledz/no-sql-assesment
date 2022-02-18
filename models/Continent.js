@@ -1,18 +1,15 @@
 const mongoose = require('mongoose');
 
-const CountryModel = mongoose.model('Country', { 
+const ContinentModel = mongoose.model('Continent', { 
     name: {
         type: String,
         required: true,
         unique: true
     },
-    isoCode: {
-        type:String
-    },
-    continent: {
+    countries: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Continent'
-    }
+        ref: 'Country'
+    }]
 });
 
-module.exports = CountryModel;
+module.exports = ContinentModel;
